@@ -1,0 +1,53 @@
+
+library(dplyr)
+library(readr)
+
+jobs <- read_csv("ai_job_market.csv")
+
+head(jobs)
+
+
+
+
+high_salary <- jobs |> 
+  filter(salary_range_usd > 100000)
+
+cat("Number of high-salary jobs:", nrow(high_salary), "\n")
+head(high_salary)
+
+
+
+
+high_salary_senior <- jobs |> 
+  filter(salary_range_usd > 100000,
+         experience_level == "Senior")
+
+cat("High salary + senior roles:", nrow(high_salary_senior), "\n")
+head(high_salary_senior)
+
+
+
+
+big_companies <- jobs |> 
+  filter(company_size > 500)
+
+cat("Number of big companies:", nrow(big_companies), "\n")
+head(big_companies)
+
+
+
+
+us_jobs <- jobs |> 
+  filter(grepl("USA|United States", location, ignore.case = TRUE))
+
+cat("Jobs located in the US:", nrow(us_jobs), "\n")
+head(us_jobs)
+
+
+
+
+industry_filter <- jobs |> 
+  filter(industry %in% c("Artificial Intelligence", "Software"))
+
+cat("Jobs in AI or Software industry:", nrow(industry_filter), "\n")
+table(industry_filter$industry)
